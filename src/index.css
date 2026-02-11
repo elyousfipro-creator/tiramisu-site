@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-creme-rose: #FFB7C5;
+  --color-creme-rose-light: #FFD4DD;
+  --color-creme-rose-dark: #E89AAA;
+  --color-creme-beige: #F5E6D3;
+  --color-creme-beige-light: #FDF8F3;
+  --color-creme-brun: #4A2C2A;
+  --color-creme-brun-light: #6B4442;
+  --color-creme-gold: #C9A86C;
+  --font-family-display: "Playfair Display", serif;
+  --font-family-body: "Poppins", sans-serif;
+}
+
+body {
+  font-family: var(--font-family-body);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-family-display);
+}
