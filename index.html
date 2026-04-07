@@ -1,12 +1,1181 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crème & Cookies - Tiramisus Artisanaux à Angers</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angers GO - Transport Express Pays de la Loire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --orange: #FF6A00;
+            --orange-dark: #E55A00;
+            --anthracite: #1C1C2E;
+            --white: #FFFFFF;
+            --bg-light: #F7F7F9;
+            --gray: #6B7280;
+            --gray-light: #E5E7EB;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--anthracite);
+            line-height: 1.6;
+            background: var(--white);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--orange);
+        }
+
+        .logo span {
+            color: var(--anthracite);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul a {
+            text-decoration: none;
+            color: var(--anthracite);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul a:hover {
+            color: var(--orange);
+        }
+
+        .btn-devis {
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-devis:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+        }
+
+        .menu-burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-burger span {
+            width: 25px;
+            height: 3px;
+            background: var(--anthracite);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-light);
+            padding: 120px 5% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            color: var(--orange);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--anthracite);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--anthracite);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--anthracite);
+            color: var(--white);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .truck-animation {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            position: relative;
+        }
+
+        .truck {
+            width: 200px;
+            height: 100px;
+            background: var(--orange);
+            border-radius: 10px;
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            animation: truckMove 3s ease-in-out infinite;
+        }
+
+        .truck::before {
+            content: '';
+            position: absolute;
+            right: -60px;
+            top: 10px;
+            width: 60px;
+            height: 50px;
+            background: var(--orange-dark);
+            border-radius: 5px 10px 10px 5px;
+        }
+
+        .truck::after {
+            content: '';
+            position: absolute;
+            right: -70px;
+            top: 25px;
+            width: 60px;
+            height: 35px;
+            background: var(--anthracite);
+            border-radius: 5px;
+        }
+
+        .wheel {
+            width: 30px;
+            height: 30px;
+            background: var(--anthracite);
+            border-radius: 50%;
+            position: absolute;
+            bottom: -15px;
+        }
+
+        .wheel::after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background: var(--gray-light);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .wheel.front { right: 20px; }
+        .wheel.back { left: 20px; }
+
+        .road {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: var(--anthracite);
+        }
+
+        .road::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, var(--white) 0px, var(--white) 30px, transparent 30px, transparent 50px);
+            animation: roadMove 0.5s linear infinite;
+        }
+
+        .package {
+            width: 60px;
+            height: 60px;
+            background: var(--orange);
+            position: absolute;
+            right: 100px;
+            top: 80px;
+            border-radius: 5px;
+            animation: packageBounce 1s ease-in-out infinite;
+        }
+
+        .package::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--anthracite);
+            transform: translateY(-50%);
+        }
+
+        .package::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--anthracite);
+            transform: translateX(-50%);
+        }
+
+        @keyframes truckMove {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+        }
+
+        @keyframes roadMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50px); }
+        }
+
+        @keyframes packageBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        /* Sections communes */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--anthracite);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Comment ça marche */
+        .steps-section {
+            background: var(--white);
+        }
+
+        .steps-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 15%;
+            right: 15%;
+            height: 3px;
+            background: var(--gray-light);
+            z-index: 0;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 120px;
+            height: 120px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(255, 106, 0, 0.3);
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--anthracite);
+        }
+
+        .step p {
+            color: var(--gray);
+        }
+
+        /* Services */
+        .services-section {
+            background: var(--bg-light);
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--anthracite);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Zone */
+        .zone-section {
+            background: var(--white);
+        }
+
+        .zone-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .map-container {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .dept-badge {
+            position: absolute;
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .dept-44 { top: 25%; left: 15%; }
+        .dept-85 { top: 60%; left: 10%; }
+        .dept-49 { top: 45%; left: 45%; }
+        .dept-53 { top: 20%; left: 55%; }
+        .dept-72 { top: 10%; right: 20%; }
+
+        .cities {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .city-tag {
+            background: var(--anthracite);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Partenaires */
+        .partenaires-section {
+            background: var(--bg-light);
+        }
+
+        .partenaires-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .partenaire-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--anthracite);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .partenaire-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .evolution-msg {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* Pourquoi nous */
+        .pourquoi-section {
+            background: var(--white);
+        }
+
+        .pourquoi-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .pourquoi-card {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .pourquoi-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--orange);
+        }
+
+        .pourquoi-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--anthracite);
+        }
+
+        .pourquoi-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Formulaire */
+        .form-section {
+            background: var(--anthracite);
+        }
+
+        .form-section .section-title {
+            color: var(--white);
+        }
+
+        .form-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-btn {
+            background: var(--orange);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-btn:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+        }
+
+        .form-success {
+            display: none;
+            background: #10B981;
+            color: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #151520;
+            padding: 60px 5% 30px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--orange);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .services-grid,
+            .pourquoi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .partenaires-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-burger {
+                display: flex;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            nav .btn-devis {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .truck-animation {
+                max-width: 280px;
+                height: 200px;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .steps-container::before {
+                display: none;
+            }
+
+            .services-grid,
+            .pourquoi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .partenaires-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .dept-badge {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div className="logo">Expresso<span>Loire</span></div>
+        <nav>
+            <div class="menu-burger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="nav-menu">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#zone">Zone</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#devis" class="btn-devis">Demander un devis</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="accueil">
+        <div class="hero-container">
+            <div class="hero-content fade-in">
+                <h1>Votre livraison express en <span>Pays de la Loire</span>, organisee en quelques minutes</h1>
+                <p>Vous avez un colis urgent ? Un chargement a expedier ? Nous trouvons le transporteur ideal pour vous. Un seul interlocuteur, zero stress.</p>
+                <div class="hero-buttons">
+                    <a href="#devis" class="btn-primary">Demander un devis gratuit</a>
+                    <a href="#comment" class="btn-secondary">En savoir plus</a>
+                </div>
+            </div>
+            <div class="hero-visual fade-in">
+                <div class="truck-animation">
+                    <div class="truck">
+                        <div class="wheel front"></div>
+                        <div class="wheel back"></div>
+                    </div>
+                    <div class="road"></div>
+                    <div class="package"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section" id="comment">
+        <h2 class="section-title fade-in">Comment ca marche</h2>
+        <p class="section-subtitle fade-in">Simple, rapide, efficace</p>
+        
+        <div class="steps-container">
+            <div class="step fade-in">
+                <div class="step-number">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h3>Vous nous contactez</h3>
+                <p>Appelez ou remplissez notre formulaire. Decrivez votre besoin : destination, delai, type de colis.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">
+                    <i class="fas fa-magnifying-glass"></i>
+                </div>
+                <h3>Nous trouvons le transporteur</h3>
+                <p>Nous comparons les offres de nos partenaires et selectionnons la solution la plus adaptee.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">
+                    <i class="fas fa-truck-fast"></i>
+                </div>
+                <h3>Votre colis est livre</h3>
+                <p>Le transporteur recueille et livre votre marchandise. Vous etes informe a chaque etape.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section" id="services">
+        <h2 class="section-title fade-in">Nos Services</h2>
+        <p class="section-subtitle fade-in">Des solutions pour tous vos besoins d'expedition</p>
+        
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <h3>Livraison J+1</h3>
+                <p>Expedition le jour meme, livraison garantie le lendemain sur toute la region.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Livraison le jour meme</h3>
+                <p>Service express pour les envois urgents. Recuperation et livraison en quelques heures.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-pallet"></i>
+                </div>
+                <h3>Transport palettes et volumineux</h3>
+                <p>Solutions pour tous les formats : palettes, electrophromenager, mobilier.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-location-dot"></i>
+                </div>
+                <h3>Suivi en temps reel</h3>
+                <p>Tracking precise via notre partenaire. Restez informe du debut a la fin.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="zone-section" id="zone">
+        <h2 class="section-title fade-in">Zone de Couverture</h2>
+        <p class="section-subtitle fade-in">Nous intervenons sur tout le territoire</p>
+        
+        <div class="zone-container fade-in">
+            <div class="map-container">
+                <svg class="map-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Region outline simplified -->
+                    <path d="M150 80 L250 60 L300 100 L320 180 L280 250 L200 280 L100 250 L80 180 L100 120 Z" 
+                          fill="#F7F7F9" stroke="#FF6A00" stroke-width="2"/>
+                    <!-- Dept 44 -->
+                    <path d="M150 80 L220 60 L250 100 L200 140 L140 120 Z" 
+                          fill="#FF6A00" fill-opacity="0.3" stroke="#FF6A00" stroke-width="1.5"/>
+                    <!-- Dept 85 -->
+                    <path d="M100 180 L180 200 L200 250 L120 260 L80 220 Z" 
+                          fill="#FF6A00" fill-opacity="0.3" stroke="#FF6A00" stroke-width="1.5"/>
+                    <!-- Dept 49 -->
+                    <path d="M180 140 L250 130 L280 180 L220 220 L160 200 Z" 
+                          fill="#FF6A00" fill-opacity="0.3" stroke="#FF6A00" stroke-width="1.5"/>
+                    <!-- Dept 53 -->
+                    <path d="M220 60 L300 70 L290 120 L230 100 L220 60 Z" 
+                          fill="#FF6A00" fill-opacity="0.3" stroke="#FF6A00" stroke-width="1.5"/>
+                    <!-- Dept 72 -->
+                    <path d="M260 50 L320 40 L340 100 L280 130 L250 100 Z" 
+                          fill="#FF6A00" fill-opacity="0.3" stroke="#FF6A00" stroke-width="1.5"/>
+                    <!-- Cities dots -->
+                    <circle cx="170" cy="100" r="6" fill="#1C1C2E"/>
+                    <text x="175" y="95" font-size="10" fill="#1C1C2E" font-weight="600">Nantes</text>
+                    <circle cx="290" cy="90" r="6" fill="#1C1C2E"/>
+                    <text x="295" y="85" font-size="10" fill="#1C1C2E" font-weight="600">Le Mans</text>
+                    <circle cx="210" cy="170" r="6" fill="#1C1C2E"/>
+                    <text x="215" y="165" font-size="10" fill="#1C1C2E" font-weight="600">Angers</text>
+                    <circle cx="130" cy="220" r="6" fill="#1C1C2E"/>
+                    <text x="135" y="215" font-size="10" fill="#1C1C2E" font-weight="600">La Roche/Yon</text>
+                    <circle cx="265" cy="85" r="6" fill="#1C1C2E"/>
+                    <text x="270" y="80" font-size="10" fill="#1C1C2E" font-weight="600">Laval</text>
+                </svg>
+                <div class="dept-badge dept-44">Loire-Atlantique (44)</div>
+                <div class="dept-badge dept-85">Vendee (85)</div>
+                <div class="dept-badge dept-49">Maine-et-Loire (49)</div>
+                <div class="dept-badge dept-53">Mayenne (53)</div>
+                <div class="dept-badge dept-72">Sarthe (72)</div>
+            </div>
+            <div class="cities fade-in">
+                <span class="city-tag">Nantes</span>
+                <span class="city-tag">Le Mans</span>
+                <span class="city-tag">Angers</span>
+                <span class="city-tag">La Roche-sur-Yon</span>
+                <span class="city-tag">Laval</span>
+                <span class="city-tag">Cholet</span>
+                <span class="city-tag">Saint-Nazaire</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="pourquoi-section">
+        <h2 class="section-title fade-in">Pourquoi nous choisir</h2>
+        <p class="section-subtitle fade-in">Les avantages Angers GO</p>
+        
+        <div class="pourquoi-grid">
+            <div class="pourquoi-card fade-in">
+                <div class="pourquoi-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Reactivite</h3>
+                <p>Reponse sous 30 minutes. On s'occupe de tout rapidement.</p>
+            </div>
+            <div class="pourquoi-card fade-in">
+                <div class="pourquoi-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <h3>Tarifs negocies</h3>
+                <p>Bennes de volume avec nos partenaires pour des prix avantageux.</p>
+            </div>
+            <div class="pourquoi-card fade-in">
+                <div class="pourquoi-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Un seul interlocuteur</h3>
+                <p>Plus besoin de contacter plusieurs transporteurs. Nous gérons.</p>
+            </div>
+            <div class="pourquoi-card fade-in">
+                <div class="pourquoi-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Reseau fiable</h3>
+                <p>Des partenaires reconnus pour leur professionalisme.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="form-section" id="devis">
+        <h2 class="section-title fade-in">Demandez votre devis gratuit</h2>
+        <p class="section-subtitle fade-in">Un appel ou un formulaire, c'est tout ce qu'il faut</p>
+        
+        <div class="form-container fade-in">
+            <form id="devis-form" onsubmit="submitForm(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nom">Nom complet *</label>
+                        <input type="text" id="nom" name="nom" required placeholder="Jean Dupont">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="jean@entreprise.fr">
+                    </div>
+                    <div class="form-group">
+                        <label for="tel">Telephone *</label>
+                        <input type="tel" id="tel" name="tel" required placeholder="06 12 34 56 78">
+                    </div>
+                    <div class="form-group">
+                        <label for="ville-depart">Ville de depart *</label>
+                        <input type="text" id="ville-depart" name="ville-depart" required placeholder="Nantes">
+                    </div>
+                    <div class="form-group">
+                        <label for="ville-arrivee">Ville d'arrivee *</label>
+                        <input type="text" id="ville-arrivee" name="ville-arrivee" required placeholder="Le Mans">
+                    </div>
+                    <div class="form-group">
+                        <label for="type-colis">Type de colis *</label>
+                        <select id="type-colis" name="type-colis" required>
+                            <option value="">Selectionnez...</option>
+                            <option value="enveloppe">Enveloppe / Documents</option>
+                            <option value="colis">Colis standard (jusqu'a 30kg)</option>
+                            <option value="volumineux">Colis volumineux (plus de 30kg)</option>
+                            <option value="palette">Palette</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="delai">Delai souhaite *</label>
+                        <select id="delai" name="delai" required>
+                            <option value="">Selectionnez...</option>
+                            <option value="jour-meme">Livraison le jour meme</option>
+                            <option value="demain">Livraison demain (J+1)</option>
+                            <option value="2-3jours">Livraison 2-3 jours</option>
+                            <option value="standard">Livraison standard</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label for="message">Message (optionnel)</label>
+                        <textarea id="message" name="message" placeholder="Details supplementaires sur votre expedition..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="form-btn">Envoyer ma demande</button>
+                <div class="form-success" id="form-success">
+                    <i class="fas fa-check-circle"></i> Merci ! Votre demande a ete envoyee. Nous vous recontactons tres rapidement.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">Angers<span>GO</span></div>
+                <p>Votre partenaire pour le transport express en Pays de la Loire. Intermediaire de confiance entre vous et les plus grands transporteurs.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#zone">Zone</a></li>
+                    <li><a href="#devis">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone"></i> 02 XX XX XX XX</p>
+                <p><i class="fas fa-envelope"></i> elyousfi.pro@gmail.com</p>
+                <p><i class="fas fa-location-dot"></i> Pays de la Loire, France</p>
+            </div>
+            <div class="footer-col">
+                <h4>Informations</h4>
+                <a href="#">Mentions legales</a>
+                <a href="#">Politique de confidentialite</a>
+                <a href="#">CGV</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>2024 Angers GO - Transport Express Pays de la Loire | Tous droits reserves</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu burger
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        }
+
+        // Form submission
+        function submitForm(e) {
+            e.preventDefault();
+            const form = document.getElementById('devis-form');
+            const success = document.getElementById('form-success');
+            
+            // Basic validation
+            const inputs = form.querySelectorAll('input[required], select[required]');
+            let valid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    valid = false;
+                    input.style.border = '2px solid #EF4444';
+                } else {
+                    input.style.border = 'none';
+                }
+            });
+
+            if (valid) {
+                success.style.display = 'block';
+                form.reset();
+                setTimeout(() => {
+                    success.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+    </script>
+</body>
 </html>
